@@ -7,6 +7,7 @@ import Pet from "./Pet";
 import { ResInterface } from "./interfaces/Res";
 import Buttons from "./Buttons";
 import Navbar from "./Navbar";
+import { FilterParam } from "./interfaces/FilterParams";
 
 const Home = () => {
   const [dogs, setDogs] = useState<Dog[]>();

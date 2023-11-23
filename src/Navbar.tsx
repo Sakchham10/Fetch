@@ -6,6 +6,7 @@ import { ResInterface } from "./interfaces/Res";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { Checkbox, FormControl, FormControlLabel, FormLabel, InputLabel, ListItemText, MenuItem, OutlinedInput, Radio, RadioGroup, Select, SelectChangeEvent } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { FilterParam } from "./interfaces/FilterParams";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
