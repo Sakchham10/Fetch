@@ -115,7 +115,7 @@ const Home = () => {
           <Pet dog={dog} key={dog.id} fav={favDogs.includes(dog.id)} handleFav={addFav} />
         ))}
       </div>
-      <div className="d-flex justify-content-center">{total > 25 ? <Pagination count={Math.floor(total / 25)} page={page} color="primary" onChange={handlePaginationChange} /> : ""}</div>
+      <div className="d-flex justify-content-center">{total > 25 ? <Pagination count={Math.ceil(total / 25)} page={page} color="primary" onChange={handlePaginationChange} /> : ""}</div>
     </div>
   );
 };

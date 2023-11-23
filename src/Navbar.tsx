@@ -70,49 +70,77 @@ const Navbar: React.FC<NavBarProps> = ({ filterDogs, breeds }) => {
     navigate("/");
   };
   return (
-    <div className="d-flex justify-content-around align-items-center">
-      <div
-        role="button"
-        onClick={() => {
-          sortResult();
-        }}>
-        <span className="m-2">{sortDir === "asc" ? "Ascending" : "Descending"}</span>
-
-        {sortDir == "asc" ? <ArrowCircleDownIcon /> : <ArrowCircleUpIcon />}
+    <nav className="navbar navbar-expand-lg bg-none">
+      <div className="container-fluid">
+        <div className="d-flex justify-content-md-around align-items-center">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <div
+                  className="m-2"
+                  role="button"
+                  onClick={() => {
+                    sortResult();
+                  }}>
+                  <span className="m-2">{sortDir === "asc" ? "Ascending" : "Descending"}</span>
+                  {sortDir == "asc" ? <ArrowCircleDownIcon /> : <ArrowCircleUpIcon />}
+                </div>
+              </li>
+              <li className="nav-item">
+                <div className="m-2">
+                  <FormControl>
+                    <FormLabel id="row-radio-buttons-group-label">Sort By</FormLabel>
+                    <RadioGroup row aria-labelledby="row-radio-buttons-group-label" name="row-radio-buttons-group" defaultValue="breed" onChange={handleSortType}>
+                      <FormControlLabel value="breed" control={<Radio />} label="Breeds" />
+                      <FormControlLabel value="age" control={<Radio />} label="Age" />
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+              </li>
+              <li className="nav-item">
+                <div className="d-flex justify-content-evenly m-2">
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="breed-filter-label">Filter By Breed</InputLabel>
+                    <Select
+                      labelId="breed-filter-label"
+                      id="breed-filter"
+                      multiple
+                      value={filterBreed}
+                      onChange={handleFilter}
+                      input={<OutlinedInput label="Tag" />}
+                      renderValue={(selected) => selected.join(", ")}
+                      MenuProps={MenuProps}>
+                      {breeds.map((name) => (
+                        <MenuItem key={name} value={name}>
+                          <Checkbox checked={filterBreed.indexOf(name) > -1} />
+                          <ListItemText primary={name} />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <Buttons handleButtonClick={handleSubmit} name="Search" />
+                </div>
+              </li>
+              <li>
+                <div className="m-2">
+                  <Buttons name="Logout" handleButtonClick={handleLogout} />
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <FormControl>
-        <FormLabel id="row-radio-buttons-group-label">Sort By</FormLabel>
-        <RadioGroup row aria-labelledby="row-radio-buttons-group-label" name="row-radio-buttons-group" defaultValue="breed" onChange={handleSortType}>
-          <FormControlLabel value="breed" control={<Radio />} label="Breeds" />
-          <FormControlLabel value="age" control={<Radio />} label="Age" />
-        </RadioGroup>
-      </FormControl>
-      <div className="d-flex justify-content-evenly ">
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="breed-filter-label">Filter By Breed</InputLabel>
-          <Select
-            labelId="breed-filter-label"
-            id="breed-filter"
-            multiple
-            value={filterBreed}
-            onChange={handleFilter}
-            input={<OutlinedInput label="Tag" />}
-            renderValue={(selected) => selected.join(", ")}
-            MenuProps={MenuProps}>
-            {breeds.map((name) => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={filterBreed.indexOf(name) > -1} />
-                <ListItemText primary={name} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Buttons handleButtonClick={handleSubmit} name="Search" />
-      </div>
-      <div>
-        <Buttons name="Logout" handleButtonClick={handleLogout} />
-      </div>
-    </div>
+    </nav>
   );
 };
 
