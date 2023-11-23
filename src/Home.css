@@ -1,0 +1,9 @@
+.bg {
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+  overflow-x: hidden;
+
+  background: rgb(62, 108, 185);
+  background: linear-gradient(40deg, rgba(62, 108, 185, 1) 8%, rgba(121, 9, 118, 1) 92%);
+}

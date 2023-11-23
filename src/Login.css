@@ -1,0 +1,14 @@
+.card-head {
+  margin-top: -1.5rem;
+  background-color: #1876d1;
+  border-radius: 3%;
+}
+
+.bg {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  background: rgb(62, 108, 185);
+  background: linear-gradient(40deg, rgba(62, 108, 185, 1) 8%, rgba(121, 9, 118, 1) 92%);
+}
