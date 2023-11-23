@@ -96,9 +96,13 @@ const Home = () => {
       },
       withCredentials: true,
     });
+    //Set total to 0 to remove pagination
+    setTotal(0);
     //Save the favDog id from the response to an array and call the getDogs function to get the data from the server to display it.
     const adoptFavId = [res.data.match];
     getDogs(JSON.stringify(adoptFavId));
+    //Clear list of favdogs after sending request to the server.
+    setFavDogs([]);
   };
   return (
     <div className="bg">
