@@ -1,3 +1,4 @@
+//Interface for dog object
 export interface Dog {
   id: string;
   img: string;

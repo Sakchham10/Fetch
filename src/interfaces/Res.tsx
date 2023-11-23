@@ -1,5 +1,7 @@
+//Interface for filter response object
 export interface ResInterface {
-  next: string;
+  next?: string;
   resultIds: string;
   total: number;
+  prev?: string;
 }

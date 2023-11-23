@@ -1,5 +1,6 @@
+//Interface for filter params object
 export interface FilterParam {
   breeds: string[] | null;
   sort: string;
-  start?: number;
+  from?: number;
 }

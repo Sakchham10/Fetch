@@ -4,7 +4,6 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./Login";
 import Home from "./Home";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

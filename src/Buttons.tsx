@@ -4,6 +4,7 @@ interface buttonsProps {
   handleButtonClick?: () => void;
 }
 const Buttons: React.FC<buttonsProps> = ({ name, handleButtonClick }) => {
+  //On click on button, call the function passed as props to the component
   const handleClick = () => {
     if (handleButtonClick) {
       handleButtonClick();

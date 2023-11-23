@@ -15,82 +15,94 @@ const Home = () => {
   const [breeds, setBreeds] = useState<string[]>([]);
   const [favDogs, setFavDogs] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  const [resData, setResData] = useState<ResInterface>();
+
+  // The default sort is by breed in ascending state. No breeds are filtered intially.
   const [params, setParams] = useState<FilterParam>({ sort: `breed:asc`, breeds: null });
+
   const getDogs = async (dogIds: String) => {
     const dogData = await axiosRequest.post("/dogs", dogIds, {
       headers: {
         "Content-Type": "application/json",
       },
+      // Ensure that cookie is sent with every request
       withCredentials: true,
     });
+    //Save the data of the dogs from the response to state.
     setDogs(dogData.data);
   };
+
+  //Required to populate the multi select filter for breed.
   useEffect(() => {
     const getInitial = async () => {
       const breeds = (await axiosRequest.get("/dogs/breeds", { withCredentials: true })).data;
+      //Save the list of dog breeds to the state, which is sent to the Navbar as props later.
       setBreeds(breeds);
     };
+    //Call the async function on initial render
     getInitial();
-    getData();
   }, []);
+
   const getData = async () => {
     const res: ResInterface = (await axiosRequest.get("/dogs/search", { params, withCredentials: true })).data;
-    setResData(res);
+    //Saving the total number of dogs in each request to state. Used by pagination to determine the number of pages later.
     setTotal(res.total);
     const dogIds = JSON.stringify(res.resultIds);
+    //Saving the ids of dogs to the state. Invoke getdogs to get the data of the dogs based on the dogId
     getDogs(dogIds);
-    const dogData = await axiosRequest.post("/dogs", dogIds, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    });
-    setDogs(dogData.data);
   };
   useEffect(() => {
+    //Get first 25 dogs, and call server with every time query param changes
     getData();
   }, [params]);
 
-  const getSearched = (res: ResInterface) => {
-    setResData(res);
-    setTotal(res.total);
-    getDogs(JSON.stringify(res.resultIds));
+  const getSearched = (params: FilterParam) => {
+    setParams(params);
   };
 
   const handlePaginationChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    console.log(params);
-    setParams((prev) => {
-      return { ...prev, start: 25 * value };
-    });
+    //Set new page to value received from event
     setPage(value);
+    const fromVal = 25 * (value - 1);
+    if (value == 1) {
+      setParams((prev) => {
+        return { ...prev, from: 1 };
+      });
+    }
+    setParams((prev) => {
+      //Update params to include new from value in query
+      return { ...prev, from: fromVal };
+    });
   };
 
   const addFav = (id: string) => {
     setFavDogs((prevState) => {
+      //If the favDog array already includes the id, remove it from the array
       if (prevState.includes(id)) {
         prevState = prevState.filter(function (item) {
           return item !== id;
         });
       } else {
+        //If the favDog array doesn't include the id, add it to the array
         return [...prevState, id];
       }
       return prevState;
     });
   };
   const handleAdopt = async () => {
+    //Call the server with the list of favDog array
     const res = await axiosRequest.post("/dogs/match", favDogs, {
       headers: {
         "Content-Type": "application/json",
       },
       withCredentials: true,
     });
+    //Save the favDog id from the response to an array and call the getDogs function to get the data from the server to display it.
     const adoptFavId = [res.data.match];
     getDogs(JSON.stringify(adoptFavId));
   };
   return (
     <div className="bg">
-      <Navbar searchedDogs={getSearched} breeds={breeds} />
+      <Navbar filterDogs={getSearched} breeds={breeds} />
       <div className="d-flex justify-content-center align-items-between" onClick={handleAdopt}>
         {favDogs.length > 0 ? <Buttons name="Adopt" /> : ""}
       </div>
@@ -99,7 +111,7 @@ const Home = () => {
           <Pet dog={dog} key={dog.id} fav={favDogs.includes(dog.id)} handleFav={addFav} />
         ))}
       </div>
-      {total > 25 ? <Pagination count={Math.floor(total / 25)} page={page} variant="outlined" color="primary" onChange={handlePaginationChange} /> : ""}
+      <div className="d-flex justify-content-center">{total > 25 ? <Pagination count={Math.floor(total / 25)} page={page} color="primary" onChange={handlePaginationChange} /> : ""}</div>
     </div>
   );
 };
