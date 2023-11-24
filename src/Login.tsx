@@ -49,8 +49,8 @@ const Login = () => {
           <h4 className="text-center mt-2 text-white">Sign In</h4>
         </div>
         <form className="d-flex flex-column">
-          <Input id="name" name="Name" inputType="text" changeValue={setNameValue} />
-          <Input id="email" name="Email" inputType="email" changeValue={setEmailValue} inputError={invaldEmail} />
+          <Input data-testid="name" id="name" name="Name" inputType="text" changeValue={setNameValue} />
+          <Input data-testid="email" id="email" name="Email" inputType="email" changeValue={setEmailValue} inputError={invaldEmail} />
           <Buttons name="Login" handleButtonClick={handleSubmit} />
         </form>
       </div>
