@@ -1,8 +1,7 @@
-
 Fetch App
 Welcome to my Fetch App! This application allows users to browse and search for dogs, filter by breed, and create matches based on their favorite dogs. Users can log in securely, explore a variety of dogs, mark their favorites, and generate a match with their selected dogs.
 
-****Getting Started****
+\***\*Getting Started\*\***
 
 To get started with the Dog Match App, follow these steps
 
@@ -20,6 +19,7 @@ npm install
 ```
 
 **Start the application**
+
 ```
 npm run dev
 ```
@@ -47,9 +47,3 @@ Vite
 Npm
 Bootstrap 5.2
 React Material UI
-
-
-
-
-
-
