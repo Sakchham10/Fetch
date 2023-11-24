@@ -9,7 +9,7 @@ To get started with the Dog Match App, follow these steps
 **Clone the repository to your local machine**
 
 ```
-https://github.com/Sakchham10/Fetch.git
+git clone https://github.com/Sakchham10/Fetch.git
 ```
 
 **Install the necessary dependencies**
